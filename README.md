@@ -31,21 +31,16 @@ $first = $all[0];
 
 ```
 
-## Framework Integration
-
-- Symfony - [FreshdeskBundle](https://github.com/mpclarkson/freshdesk-bundle) 
-- Laravel/Lumen - [Freshdesk Larvel Service Provider](https://github.com/mpclarkson/freshdesk-laravel) .
-
 ## Installation
 
 To integrate this library into your application, use [Composer](https://getcomposer.org).
 
-Add `mpclarkson/freshdesk-php-sdk` to your **composer.json** file:
+Add `seyvillas/freshdesk-php-sdk` to your **composer.json** file:
 
 ```json
 {
     "require": {
-        "mpclarkson/freshdesk-php-sdk": "dev-master"
+        "seyvillas/freshdesk-php-sdk": "dev-master"
     }
 }
 ```
@@ -157,14 +152,14 @@ which Freshdesk has not yet implemented.
 
 - [ ] Solutions
 - [ ] Surveys
-- [ ] Uploading files is not yet supported
+- [x] Uploading files is not yet supported
 - [ ] More tests. You can never have enough!
 - [ ] Nicer documentation
 
 ## Author
 
-The library was written and maintained by [Matthew Clarkson](http://mpclarkson.github.io/) 
-from [Hilenium](https://hilenium.com).
+The library was originally written and maintained by [Matthew Clarkson](http://mpclarkson.github.io/) 
+from [Hilenium](https://hilenium.com). Now continues with SeyVillas developers.
 
 ## Reference
 
