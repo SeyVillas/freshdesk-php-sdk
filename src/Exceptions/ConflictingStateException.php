@@ -6,6 +6,8 @@
 
 namespace Freshdesk\Exceptions;
 
+use GuzzleHttp\Exception\RequestException;
+
 /**
  * Conflicting State Exception
  *
@@ -15,6 +17,7 @@ namespace Freshdesk\Exceptions;
  *
  * @package Exceptions
  * @author Matthew Clarkson <mpclarkson@gmail.com>
+ * @author Miroslav Koula <mkoula@gmail.com>
  */
 class ConflictingStateException extends ApiException
 {
