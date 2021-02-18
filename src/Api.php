@@ -228,6 +228,7 @@ class Api
 			}
 
 			$multiparts = [];
+
 			foreach($attachments as $possibleFilename => $attachment) {
 
 			    $multipart = [
@@ -241,11 +242,37 @@ class Api
 
 			    $multiparts[] = $multipart;
 			}
+
+			// custom fields can not be array
+            if ($data['custom_fields']) {
+                $customFields = $data['custom_fields'];
+                unset($data['custom_fields']);
+
+                foreach ($customFields as $customFieldKey => $customFieldValue) {
+                    $multipart = [
+                        'name' => sprintf('custom_fields[%s]', $customFieldKey),
+                        // boolean needs to be cast to string
+                        'contents' => (is_bool($customFieldValue) ? ($customFieldValue === true ? 'true' : 'false') : $customFieldValue),
+                    ];
+
+                    $multiparts[] = $multipart;
+                }
+            }
+
 			foreach($data as $key => $value) {
-				$multiparts[] = [
-					'name' => $key,
-					'contents' => $value,
-				];
+			    if (is_array($value)) {
+			        foreach ($value as $itemValue) {
+                        $multiparts[] = [
+                            'name' => $key . '[]',
+                            'contents' => $itemValue,
+                        ];
+                    }
+                } else {
+                    $multiparts[] = [
+                        'name' => $key,
+                        'contents' => $value,
+                    ];
+                }
 			}
 
 			$options = [
