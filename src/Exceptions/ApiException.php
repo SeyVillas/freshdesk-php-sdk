@@ -19,6 +19,7 @@ use GuzzleHttp\Exception\RequestException;
  */
 class ApiException extends Exception
 {
+    protected $body = null;
 
     /**
      * @internal
@@ -30,26 +31,27 @@ class ApiException extends Exception
      public static function create(RequestException $e) {
 
          if($response = $e->getResponse()) {
-             
+             $body = $response->getBody()->getContents();
+
              switch ($response->getStatusCode()) {
                  case 400:
-                     return new ValidationException($e);
+                     return new ValidationException($e, $body);
                  case 401:
-                     return new AuthenticationException($e);
+                     return new AuthenticationException($e, $body);
                  case 403:
-                     return new AccessDeniedException($e);
+                     return new AccessDeniedException($e, $body);
                  case 404:
-                     return new NotFoundException($e);
+                     return new NotFoundException($e, $body);
                  case 405:
-                     return new MethodNotAllowedException($e);
+                     return new MethodNotAllowedException($e, $body);
                  case 406:
-                     return new UnsupportedAcceptHeaderException($e);
+                     return new UnsupportedAcceptHeaderException($e, $body);
                  case 409:
-                     return new ConflictingStateException($e);
+                     return new ConflictingStateException($e, $body);
                  case 415:
-                     return new UnsupportedContentTypeException($e);
+                     return new UnsupportedContentTypeException($e, $body);
                  case 429:
-                     return new RateLimitExceededException($e);
+                     return new RateLimitExceededException($e, $body);
              }
          }
 
@@ -75,16 +77,36 @@ class ApiException extends Exception
     }
 
     /**
+     * @return string|null
+     */
+    public function getRequestBody()
+    {
+        return $this->body;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRequestArray()
+    {
+        return json_decode($this->body, true);
+    }
+
+    /**
      * Exception constructor
      *
      * Constructs a new exception.
      *
      * @param RequestException $e
+     * @param null|string $body
      * @internal
      */
-    public function __construct(RequestException $e)
+    public function __construct(RequestException $e, $body = null)
     {
         $this->exception = $e;
+        if ($body) {
+            $this->body = $body;
+        }
         parent::__construct();
     }
 }
