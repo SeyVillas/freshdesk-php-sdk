@@ -244,7 +244,7 @@ class Api
 			}
 
 			// custom fields can not be array
-            if ($data['custom_fields']) {
+            if (isset($data['custom_fields'])) {
                 $customFields = $data['custom_fields'];
                 unset($data['custom_fields']);
 
