@@ -87,6 +87,9 @@ $deleted = $api->groups->delete($groupId);
 //Tickets
 $ticket = $api->tickets->view($filters);
 
+//Attachments
+$api->attachments->delete($attachmentId);
+
 //Time Entries
 $time = $api->timeEntries->all($ticket['id']);
 
@@ -151,7 +154,8 @@ which Freshdesk has not yet implemented.
 
 - [ ] Solutions
 - [ ] Surveys
-- [x] Uploading files is not yet supported
+- [x] Uploading attachment file 
+- [x] Deleting attachment file by id 
 - [ ] More tests. You can never have enough!
 - [ ] Nicer documentation
 
