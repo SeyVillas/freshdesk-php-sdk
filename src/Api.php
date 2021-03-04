@@ -27,6 +27,7 @@ use Freshdesk\Resources\Group;
 use Freshdesk\Resources\Product;
 use Freshdesk\Resources\SLAPolicy;
 use Freshdesk\Resources\Ticket;
+use Freshdesk\Resources\Attachment;
 use Freshdesk\Resources\TimeEntry;
 use Freshdesk\Resources\Topic;
 use GuzzleHttp\Client;
@@ -40,6 +41,7 @@ use GuzzleHttp\Exception\RequestException;
  *
  * @package Api
  * @author Matthew Clarkson <mpclarkson@gmail.com>
+ * @author Miroslav Koula <mkoula@gmail.com>
  */
 class Api
 {
@@ -82,6 +84,14 @@ class Api
      * @var Ticket
      */
     public $tickets;
+
+    /**
+     * Attachment resources
+     *
+     * @api
+     * @var Attachment
+     */
+    public $attachments;
 
     /**
      * TimeEntry resources
@@ -362,6 +372,9 @@ class Api
         $this->tickets = new Ticket($this);
         $this->timeEntries = new TimeEntry($this);
         $this->conversations = new Conversation($this);
+
+        //Attachments
+        $this->attachments = new Attachment($this);
 
         //Discussions
         $this->categories = new Category($this);
